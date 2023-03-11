@@ -1,0 +1,21 @@
+.list{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  gap: 10px;
+  
+}
+
+.list-item{
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.customContainer{
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
