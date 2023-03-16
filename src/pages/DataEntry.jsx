@@ -5,6 +5,8 @@ import PageName from '../components/PageName'
 import {toast} from "react-toastify"
 import Form from '../components/Form'
 import { addDoc,serverTimestamp,collection } from 'firebase/firestore'
+import contactService from '../services/contactService'
+
 
 const DataEntry = () => {
     const initialState = {
@@ -13,6 +15,8 @@ const DataEntry = () => {
         contact: "",
 
     }
+
+    
 
     const [state,setState] = useState(initialState)
     const {name,email,contact} = state
@@ -25,21 +29,18 @@ const DataEntry = () => {
     const handleSubmit = async(e) =>{
         e.preventDefault();
         const {name,email,contact} = state
-        console.log(state)
         if(!name || !email || !contact){
           toast.error("Fields are blank")
-        }else{
-          await addDoc(collection(firebasedb,"contacts"),{
-            name: state.name,
-            email: state.email,
-            contact: state.contact
+          return;
+          }  
 
-          })
-           toast.success("Data is entered")
-          navigate("/")
-        }
-       
-        
+          try {
+            await contactService.addContact(state)
+            toast.success("The contact was added")
+            navigate("/")
+          } catch (error) {
+            console.log(error)
+          }
     }
   return (
     <Fragment>

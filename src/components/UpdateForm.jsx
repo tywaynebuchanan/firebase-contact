@@ -1,12 +1,12 @@
 import React from 'react'
 
-const Form = ({state,handleSubmit,handleInputChange}) => {
+const UpdateForm = ({state,handleEdit,handleInputChange}) => {
     const {name,email,contact} = state
   return (
     
     <div className="customContainer">
          <div className="container box p-6">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleEdit}>
         <div className="field">
             <label className="label">Name</label>
             <div className="control">
@@ -15,7 +15,7 @@ const Form = ({state,handleSubmit,handleInputChange}) => {
             className="input" 
             type="text" 
             placeholder="e.g Alex Smith"
-            value = {name || ""}
+            value = {name}
             onChange = {handleInputChange}
             />
         </div>
@@ -29,7 +29,7 @@ const Form = ({state,handleSubmit,handleInputChange}) => {
             className="input" 
             type="email" 
             placeholder="e.g. alexsmith@gmail.com"
-            value = {email || ""}
+            value = {email}
             onChange = {handleInputChange}
             />
         </div>
@@ -44,7 +44,7 @@ const Form = ({state,handleSubmit,handleInputChange}) => {
             class="input" 
             type="telephone" 
             placeholder="876-444-5533"
-            value = {contact || ""}
+            value = {contact}
             onChange = {handleInputChange}
             />
         </div>
@@ -61,4 +61,4 @@ const Form = ({state,handleSubmit,handleInputChange}) => {
   )
 }
 
-export default Form
+export default UpdateForm

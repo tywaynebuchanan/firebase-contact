@@ -3,15 +3,23 @@ import List from '../components/List'
 import PageName from '../components/PageName'
 import { collection, getDocs } from 'firebase/firestore'
 import { firebasedb } from '../config/firebase'
+import contactService from '../services/contactService'
+import Loading from '../components/Loading'
 
 const Home = () => {
-    const contactCollectionRef = collection(firebasedb,"contacts")
      const [contacts,setContacts] = useState([])
-     const [show,setShow] = useState(false)
+     const [loading,setLoading] = useState(false)
 
   const getContacts = async ()=>{
-    const data = await getDocs(contactCollectionRef)
+    try {
+      setLoading(true)
+      const data = await contactService.getAllContacts()
       setContacts(data.docs.map((doc)=>({...doc.data(),id: doc.id }))) 
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+    
   }
   
   useEffect(()=>{
@@ -22,7 +30,8 @@ console.log(contacts)
   return (
     <Fragment>
         <PageName title="Home"/>
-        <List contacts={contacts}/>
+        {loading ? <Loading/> : <List contacts={contacts} getContacts = {getContacts}/>}
+        
     </Fragment>
     
   )
